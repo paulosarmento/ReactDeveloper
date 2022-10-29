@@ -1,20 +1,26 @@
+import Link from "next/link";
 import { useMenu } from "../../../contexts/MenuContext/UseMenu";
 
 const Header = () => {
-
   const { setIsOpen } = useMenu();
 
   return (
     <header id="header">
-      <div className="overlay" data-close="menu"></div>
-      <a href="index.html#home"
-        ><img src="images/ferrari-logo.svg" className="logo" alt="Logo"
-      /></a>
+      <div
+        className="overlay"
+        data-close="menu"
+        onClick={() => setIsOpen(false)}
+      />
+      <Link href="/#home">
+        <a>
+          <img src="/images/ferrari-logo.svg" className="logo" alt="Logo" />
+        </a>
+      </Link>
       <button
         type="button"
         id="btn-open"
         aria-label="Abrir Menu"
-        onClick= {()=>{setIsOpen(true)}}
+        onClick={() => setIsOpen(true)}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +42,7 @@ const Header = () => {
             id="btn-close"
             data-close="menu"
             aria-label="fechar"
-            onClick= {()=>{setIsOpen(false)}}
+            onClick={() => setIsOpen(false)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,26 +50,48 @@ const Header = () => {
               height="24"
               viewBox="0 0 24 24"
             >
-              <path
-                d="M19,6.41,17.59,5,12,10.59,6.41,5,5,6.41,10.59,12,5,17.59,6.41,19,12,13.41,17.59,19,19,17.59,13.41,12Z"
-              />
+              <path d="M19,6.41,17.59,5,12,10.59,6.41,5,5,6.41,10.59,12,5,17.59,6.41,19,12,13.41,17.59,19,19,17.59,13.41,12Z" />
               <path d="M0,0H24V24H0Z" fill="none" />
             </svg>
           </button>
           <ul>
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#service">Revisão</a></li>
-            <li><a href="index.html#contact">Contato</a></li>
-            <li className="divider"><hr /></li>
-            <li className="hide-guest">
-              <a href="schedules.html">Agendamentos</a>
+            <li>
+              <Link href="/#home">
+                <a>Home</a>
+              </Link>
             </li>
-            <li className="hide-guest"><a href="profile.html">Editar Dados</a></li>
-            <li className="hide-guest">
-              <a href="change-photo.html">Mudar Foto</a>
+            <li>
+              <Link href="/#service">
+                <a>Revisão</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/#contact">
+                <a>Contato</a>
+              </Link>
+            </li>
+            <li className="divider">
+              <hr />
             </li>
             <li className="hide-guest">
-              <a href="change-password.html">Alterar Senha</a>
+              <Link href="/schedules">
+                <a>Agendamentos</a>
+              </Link>
+            </li>
+            <li className="hide-guest">
+              <Link href="/profile">
+                <a>Editar Dados</a>
+              </Link>
+            </li>
+            <li className="hide-guest">
+              <Link href="/change-photo">
+                <a>Mudar Foto</a>
+              </Link>
+            </li>
+            <li className="hide-guest">
+              <Link href="/change-password">
+                <a>Alterar Senha</a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -71,15 +99,19 @@ const Header = () => {
           <hr />
           <div>
             <picture>
-              <a href="#"
-                ><img src="images/user.png" alt="João Rangel"
-              /></a>
+              <Link href="/profile">
+                <a>
+                  <img src="/images/user.png" alt="João Rangel" />
+                </a>
+              </Link>
             </picture>
             <div>
-              <a href="#">
-                <strong>João Rangel</strong>
-                <small>joao@hcode.com.br</small>
-              </a>
+              <Link href="/profile">
+                <a>
+                  <strong>João Rangel</strong>
+                  <small>joao@hcode.com.br</small>
+                </a>
+              </Link>
             </div>
             <button type="button" aria-label="botao">
               <svg
@@ -96,13 +128,15 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          <a href="auth.html" className="btn-register"> Minha Conta </a>
+          <Link href="/auth">
+            <a className="btn-register"> Minha Conta </a>
+          </Link>
         </div>
       </div>
 
       <hr className="italy" />
     </header>
-  )
-}
+  );
+};
 
 export default Header;

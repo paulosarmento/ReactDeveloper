@@ -1,17 +1,49 @@
+import axios from "axios";
+import { useForm } from "react-hook-form";
+
+type FormData = {
+  email: string;
+  password: string;
+};
 const FormLogin = () => {
+  const { register, handleSubmit } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    axios
+      .post(`/auth/login`, data, {
+        baseURL: process.env.API_URL,
+      })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((e) => console.error(e));
+  };
+
   return (
-    <form id="auth-login">
+    <form id="auth-login" onSubmit={handleSubmit<FormData>(onSubmit)}>
       <h1>Fazer login</h1>
 
       <hr />
 
       <div className="field">
-        <input type="email" name="email" id="email-login" readOnly />
+        <input
+          type="email"
+          id="email-login"
+          {...register("email", {
+            required: "E-mail é obrigatório",
+          })}
+        />
         <label htmlFor="email-login">E-mail</label>
       </div>
 
       <div className="field">
-        <input type="password" name="password" id="password" />
+        <input
+          type="password"
+          id="password"
+          {...register("password", {
+            required: "Senha é obrigatória",
+          })}
+        />
         <label htmlFor="password">Digite sua Senha</label>
       </div>
 

@@ -1,15 +1,14 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
 import FormEmail from "../components/Auth/FormEmail";
 import FormForget from "../components/Auth/FormForget";
 import FormLogin from "../components/Auth/FormLogin";
 import FormRegister from "../components/Auth/FormRegister";
 import FormReset from "../components/Auth/FormReset";
-import { FormType } from "../types/FormType";
+import { useAuth } from "../contexts/AuthContext/UseAuth";
 
 const ComponentPage: NextPage = () => {
-  const [currentForm, setCurrentForm] = useState<FormType>("email");
+  const {currentForm} = useAuth();
 
   return (
     <main id="auth">

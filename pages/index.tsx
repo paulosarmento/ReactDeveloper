@@ -27,8 +27,7 @@ export default ComponentPage;
 
 export const getServerSideProps = withIronSessionSsr(
   async (context: GetServerSidePropsContext) => {
-    context.req.session.token = "ABC123";
-    await context.req.session.save();
+    console.log("TOKEN: ", context.req.session.token);
 
     return {
       props: {},

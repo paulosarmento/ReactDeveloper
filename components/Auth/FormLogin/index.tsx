@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Alert from "../../Alert";
 import { get } from "lodash";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 type FormData = {
   email: string;
@@ -10,6 +11,8 @@ type FormData = {
   server?: string;
 };
 const FormLogin = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -24,11 +27,9 @@ const FormLogin = () => {
 
   const onSubmit = (data: FormData) => {
     axios
-      .post(`/auth/login`, data, {
-        baseURL: process.env.API_URL,
-      })
+      .post(`/api/auth/login`, data)
       .then(({ data }) => {
-        console.log(data);
+        router.push("/");
       })
       .catch((e: any) =>
         setError("server", {

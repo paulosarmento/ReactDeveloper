@@ -1,7 +1,14 @@
 const Footer = () => {
+  const toUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <footer id="footer">
-      <button type="button" aria-label="botao">
+      <button type="button" aria-label="botao" onClick={toUp}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="64.317"
@@ -19,26 +26,32 @@ const Footer = () => {
         <div>
           <ul className="links">
             <li className="title">Links</li>
-            <li><a href="index.html#home">Home</a></li>
-            <li><a href="index.html#service">Revisão</a></li>
-            <li><a href="index.html#contact">Contato</a></li>
+            <li>
+              <a href="index.html#home">Home</a>
+            </li>
+            <li>
+              <a href="index.html#service">Revisão</a>
+            </li>
+            <li>
+              <a href="index.html#contact">Contato</a>
+            </li>
           </ul>
           <ul>
             <li className="title">Contato</li>
             <li>E-mail: support@ferrari.it</li>
             <li className="social">
-              <a href="#"
-                ><img src="images/facebook.svg" alt="Facebook"
-              /></a>
-              <a href="#"
-                ><img src="images/twitter.svg" alt="Twitter"
-              /></a>
-              <a href="#"
-                ><img src="images/youtube.svg" alt="YouTube"
-              /></a>
-              <a href="#"
-                ><img src="images/instagram.svg" alt="Instagram"
-              /></a>
+              <a href="#">
+                <img src="images/facebook.svg" alt="Facebook" />
+              </a>
+              <a href="#">
+                <img src="images/twitter.svg" alt="Twitter" />
+              </a>
+              <a href="#">
+                <img src="images/youtube.svg" alt="YouTube" />
+              </a>
+              <a href="#">
+                <img src="images/instagram.svg" alt="Instagram" />
+              </a>
             </li>
           </ul>
         </div>
@@ -50,16 +63,16 @@ const Footer = () => {
             viewBox="0 0 297.709 64.725"
           >
             <defs>
-              <style jsx>{`
-                .a {
-                  opacity: 0.5;
-                }
-                .b {
-                  fill: #fff;
-                  fill-rule: evenodd;
-                }
-              `}
-                
+              <style jsx>
+                {`
+                  .a {
+                    opacity: 0.5;
+                  }
+                  .b {
+                    fill: #fff;
+                    fill-rule: evenodd;
+                  }
+                `}
               </style>
             </defs>
             <g className="a" transform="translate(-2.792 -76.071)">
@@ -79,6 +92,6 @@ const Footer = () => {
       </div>
       <p>2020 © Hcode. All rights reserved.</p>
     </footer>
-)
-}
+  );
+};
 export default Footer;

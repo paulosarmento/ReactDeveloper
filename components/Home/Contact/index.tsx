@@ -1,10 +1,47 @@
+import { Fragment, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Item from "./item";
+import { get } from "lodash";
+import axios from "axios";
+import { Contact } from "../../../types/Contact";
+
+type FormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
 const Contact = () => {
+  const [sent, setSent] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>();
+
+  const save: SubmitHandler<FormData> = (data) => {
+    setSent(false);
+    axios
+      .post<Contact>("/contacts", data, {
+        baseURL: process.env.API_URL,
+      })
+      .then(({ data }) => {
+        setSent(true);
+        reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <section id="contact">
       <h2>Entre em Contato</h2>
 
       <section>
-        <form>
+        <form onSubmit={handleSubmit(save)}>
           <header className="page-title">
             <h1>Formulário</h1>
             <hr />
@@ -12,20 +49,50 @@ const Contact = () => {
 
           <p>Envie o formulário abaixo para entrar em contato conosco.</p>
 
-          <div className="alert danger">Preencha todos os campos</div>
+          {Object.keys(errors).length > 0 && (
+            <div className="alert danger">
+              {Object.keys(errors).map((key, index) => (
+                <Fragment key={index}>
+                  {get(
+                    errors,
+                    `${key}.message`,
+                    "Confira os campos obrigatórios"
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          )}
+          {sent && <div className="alert success">Enviado com sucesso</div>}
 
           <div className="fields">
             <div className="field">
-              <input type="text" name="name" id="name" />
+              <input
+                type="text"
+                id="name"
+                {...register("name", {
+                  required: "O campo nome é Obrigatório.",
+                })}
+              />
               <label htmlFor="name">Nome Completo</label>
             </div>
             <div className="field">
-              <input type="email" name="email" id="email" />
+              <input
+                type="email"
+                id="email"
+                {...register("email", {
+                  required: "O campo email é Obrigatório.",
+                })}
+              />
               <label htmlFor="email">E-mail</label>
             </div>
           </div>
           <div className="field">
-            <textarea name="message" id="message"></textarea>
+            <textarea
+              id="message"
+              {...register("message", {
+                required: "O campo mensagem é Obrigatório.",
+              })}
+            ></textarea>
             <label htmlFor="message">Mensagem</label>
           </div>
           <div className="actions">
@@ -36,29 +103,29 @@ const Contact = () => {
       </section>
       <hr className="divider" />
       <ul className="contacts">
-        <li>
-          <img src="images/icon-google-place.svg" alt="Icon" />
-          <p className="title">OUR HEADQUARTERS</p>
-          <p>Modena, Itália</p>
-        </li>
-        <li>
-          <img src="images/icon-phone.svg" alt="Icon" />
-          <p className="title">SPEAK TO US</p>
-          <p>(123) 456 7890</p>
-        </li>
-        <li>
-          <img src="images/icon-skype.svg" alt="Icon" />
-          <p className="title">MAKE A VIDEO CALL</p>
-          <p>FerrariOnSkype</p>
-        </li>
-        <li>
-          <img src="images/icon-google-place.svg" alt="Icon" />
-          <p className="title">FOLLOW ON TWITTER</p>
-          <p>2.3M Followers</p>
-        </li>
+        <Item
+          image="images/icon-google-place.svg"
+          title="OUR HEADQUARTERS"
+          text="Modena, Itália"
+        />
+        <Item
+          image="images/icon-phone.svg"
+          title="SPEAK TO US"
+          text="(123) 456 7890"
+        />
+        <Item
+          image="images/icon-skype.svg"
+          title="MAKE A VIDEO CALL"
+          text="FerrariOnSkype"
+        />
+        <Item
+          image="images/icon-twitter.svg"
+          title="FOLLOW ON TWITTER"
+          text="2.3M Followers"
+        />
       </ul>
     </section>
-  )
-}
+  );
+};
 
 export default Contact;

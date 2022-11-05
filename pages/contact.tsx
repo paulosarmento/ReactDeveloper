@@ -6,15 +6,16 @@ import Footer from "../components/Home/Footer";
 import Header from "../components/Home/Header";
 import { sessionOptions } from "../utils/session";
 
+
+
 type ComponentPageType = {
   token: string;
 };
 
-const ComponentPage: NextPage<ComponentPageType> = ({ token }) => {
+const ComponentPage: NextPage = () => {
   return (
     <Fragment>
       <Header />
-      {token}
       <Contact />
       <Footer />
     </Fragment>
@@ -23,13 +24,13 @@ const ComponentPage: NextPage<ComponentPageType> = ({ token }) => {
 
 export default ComponentPage;
 
-export const getServerSideProps = withIronSessionSsr(
-  async (context: GetServerSidePropsContext) => {
-    return {
-      props: {
-        token: context.req.session.token,
-      },
-    };
-  },
-  sessionOptions
-);
+// export const getServerSideProps = withIronSessionSsr(
+//   async (context: GetServerSidePropsContext) => {
+//     return {
+//       props: {
+//         token: context.req.session.token,
+//       },
+//     };
+//   },
+//   sessionOptions
+// );

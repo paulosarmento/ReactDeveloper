@@ -1,7 +1,11 @@
+import Link from "next/link";
+
 const Service = () => {
   return (
     <section id="service">
-      <h2>Agende seu Serviço<small>Como funciona?</small></h2>
+      <h2>
+        Agende seu Serviço<small>Como funciona?</small>
+      </h2>
 
       <div>
         <div className="icons">
@@ -20,13 +24,14 @@ const Service = () => {
             <figcaption>Pague Online</figcaption>
           </figure>
         </div>
-
-        <a href="schedules-new.html" className="btn">Agendar Serviço</a>
+        <Link href="/schedules-new">
+          <a className="btn">Agendar Serviço</a>
+        </Link>
       </div>
 
       <img src="images/services.svg" alt="Serviços" />
     </section>
-  )
-}
+  );
+};
 
 export default Service;

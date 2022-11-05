@@ -1,23 +1,19 @@
 import Link from "next/link";
-
-type FooterButton = {
-  href?: string;
-  type?: "submit" | "button" | "reset";
-  value: string;
-  disabled?: boolean;
-  className?: string;
-  onclick?: () => void;
-};
+import {
+  buttonBack,
+  buttonContinue,
+  FooterButton,
+} from "../../../utils/buttons";
 
 type FooterProps = {
   buttons?: FooterButton[];
 };
 
-const Footer = ({ buttons }: FooterProps) => {
+const Footer = ({ buttons = [buttonBack, buttonContinue] }: FooterProps) => {
   return (
     <footer className="fixed">
       {buttons?.map(
-        ({ href, type, className, disabled, onclick, value }, index) => {
+        ({ href, type, className, disabled, onClick, value }, index) => {
           if (href === undefined) {
             return (
               <button
@@ -25,7 +21,7 @@ const Footer = ({ buttons }: FooterProps) => {
                 type={type}
                 className={className}
                 disabled={disabled}
-                onclick={onclick}
+                onClick={onClick}
               >
                 {value}
               </button>
